@@ -1,7 +1,6 @@
-package med.voll.api.paciente;
+package med.voll.api.domain.paciente;
 
-import jakarta.persistence.Enumerated;
-import med.voll.api.endereco.Endereco;
+import med.voll.api.domain.endereco.Endereco;
 
 public record DadosListagemPaciente(
         Long id, String nome, String email, String telefone, String cpf, Endereco endereco) {
