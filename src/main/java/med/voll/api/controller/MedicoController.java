@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -72,9 +73,21 @@ public class MedicoController {
     }
 
     @GetMapping("/{id}")
+    //@Secured("ROLE_ADMIN") apenas usuários com o perfil ADMIN podem disparar requisições para detalhar um médico
     public ResponseEntity detalhar(@PathVariable Long id) {
         var medico = repository.getReferenceById(id);
         return ResponseEntity.ok(new DadosDetalhamentoMedico(medico));
     }
+
+    /**
+     * @Secured("ROLE_ADMIN")
+     * Outra maneira de restringir o acesso a determinadas funcionalidades, com base no perfil dos usuários.
+     *
+     * A anotação pode ser adicionada em métodos individuais ou mesmo na classe, que seria o equivalente a
+     * adicioná-la em todos os métodos.
+     *
+     * Por padrão esse recurso vem desabilitado no spring Security, sendo que para o utilizar devemos adicionar
+     * a seguinte anotação na classe Securityconfigurations do projeto: @EnableMethodSecurity(securedEnabled = true)
+     * */
 
 }
